@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.epam.tc</groupId>
+    <artifactId>elena_iaropolova</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <surefire.testngxmlfile>${project.basedir}/src/test/resources/com/epam/tc/hw1/SumAndSubTestSuite.xml
+        </surefire.testngxmlfile>
+        <calculator.jar.path>${project.basedir}/calculator-1.0.jar
+        </calculator.jar.path>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>hw1-sum-and-sub-calculator-test-suite</id>
+            <properties>
+                <suite.xml.name>${surefire.testngxmlfile}
+                </suite.xml.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>hw1-div-and-multiply-calculator-test-suite</id>
+            <properties>
+                <surefire.testngxmlfile>
+                    ${project.basedir}/src/test/resources/com/epam/tc/hw1/DivAndMultiplyTestSuite.xml
+                </surefire.testngxmlfile>
+            </properties>
+        </profile>
+        <profile>
+            <id>hw1-all-calculator-test-suite</id>
+            <properties>
+                <surefire.testngxmlfile>${project.basedir}/src/test/resources/com/epam/tc/hw1/AllCalculatorTestSuite.xml
+                </surefire.testngxmlfile>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.8.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>calculator</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${calculator.jar.path}</systemPath>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${surefire.testngxmlfile}</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.27</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
